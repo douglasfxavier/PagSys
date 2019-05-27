@@ -53,7 +53,7 @@ public class Maquineta {
              Channel canal = connection.createChannel()){
 
             canal.exchangeDeclare(NOME_FILA,"direct");
-            canal.basicPublish(NOME_FILA,banco.name()   , MessageProperties.PERSISTENT_TEXT_PLAIN, pagamentoJSON.getBytes("UTF-8"));
+            canal.basicPublish(NOME_FILA,banco.name() , MessageProperties.PERSISTENT_TEXT_PLAIN, pagamentoJSON.getBytes("UTF-8"));
             System.out.println("Enviei mensagem: " + pagamentoJSON);
         }
 
