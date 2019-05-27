@@ -2,6 +2,7 @@ package br.edu.ifpb.executaveis;
 
 import br.edu.ifpb.modelo.Cartao;
 import br.edu.ifpb.modelo.Transacao;
+import br.edu.ifpb.util.Bandeiras;
 import br.edu.ifpb.util.CartoesCadastrados;
 import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class Visa {
-    private static final String NOME_FILA = "filaPagamentos2";
+    private static final String NOME_FILA = "filaOperadora";
     private static final List<Transacao> transacoes = new ArrayList<Transacao>();
     private static final List<Cartao> cartoes = CartoesCadastrados.getLista();
     private static String pagamentoJSON;
@@ -28,9 +29,9 @@ public class Visa {
         Connection connection = connectionFactory.newConnection();
         Channel canal = connection.createChannel();
 
-        canal.exchangeDeclare(NOME_FILA,"fanout");
+        canal.exchangeDeclare(NOME_FILA,"direct");
         String filaRandomica = canal.queueDeclare().getQueue();
-        canal.queueBind(filaRandomica, NOME_FILA,"");
+        canal.queueBind(filaRandomica, NOME_FILA, Bandeiras.VISA.name());
 
         DeliverCallback callback = (consumerTag, delivery)->{
             Gson gson = new Gson();
@@ -41,6 +42,7 @@ public class Visa {
 
             System.out.println("Nome do cliente: " + cartao.getCliente().getNome());
             System.out.println("Dados bancários: " +
+                               "\n  Banco: " + cartao.getBanco().name() +
                                "\n  Agência: " + cartao.getCliente().getConta().getAgencia() +
                                "\n  Conta corrente: "  + cartao.getCliente().getConta().getNumeroConta());
             System.out.println("Número do cartão: " + transacao.getNumeroCartao());

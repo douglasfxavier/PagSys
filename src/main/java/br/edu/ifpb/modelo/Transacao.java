@@ -1,15 +1,19 @@
 package br.edu.ifpb.modelo;
 
+import br.edu.ifpb.util.Bancos;
+
 public class Transacao {
     private Estabelecimento estabelecimento;
     private double valor;
+    private Bancos banco;
     private String numeroCartao;
     private String senhaHash;
 
-    public Transacao(Estabelecimento estabelecimento, String numeroCartao,  double valor, String senhaHash) {
+    public Transacao(Estabelecimento estabelecimento, double valor, Bancos banco, String numeroCartao, String senhaHash) {
         this.estabelecimento = estabelecimento;
-        this.numeroCartao = numeroCartao;
         this.valor = valor;
+        this.banco = banco;
+        this.numeroCartao = numeroCartao;
         this.senhaHash = senhaHash;
     }
 
@@ -27,6 +31,10 @@ public class Transacao {
 
     public String getSenhaHash() {
         return senhaHash;
+    }
+
+    public Bancos getBanco() {
+        return banco;
     }
 
     @Override

@@ -1,17 +1,20 @@
 package br.edu.ifpb.modelo;
 
 import br.edu.ifpb.interfaces.ICartao;
+import br.edu.ifpb.util.Bancos;
 import br.edu.ifpb.util.Bandeiras;
 
 public class Cartao implements ICartao {
     private Cliente cliente;
     private String numero;
+    private Bancos banco;
     private Bandeiras bandeira;
     private String senhaHash;
 
-    public Cartao(Cliente cliente, String numero, Bandeiras bandeira) {
+    public Cartao(Cliente cliente, String numero, Bancos banco, Bandeiras bandeira) {
         this.cliente = cliente;
         this.numero = numero;
+        this.banco = banco;
         this.bandeira = bandeira;
     }
 
@@ -46,6 +49,10 @@ public class Cartao implements ICartao {
 
     public Cliente getCliente() {
         return cliente;
+    }
+
+    public Bancos getBanco() {
+        return banco;
     }
 
     @Override
