@@ -9,6 +9,7 @@ public class Banco implements IBanco {
     List<Cartao> cartoesCadastrados;
 
     public Banco() {
+
         this.cartoesCadastrados = cartoesCadastrados = CartoesCadastrados.getLista();
     }
 

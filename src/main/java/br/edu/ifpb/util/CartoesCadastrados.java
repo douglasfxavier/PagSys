@@ -24,12 +24,12 @@ public class CartoesCadastrados {
             lista.add(cartao1);
 
             Cliente cliente2 = new Cliente("Maria",new ContaCorrente("2020-1","23456-7"));
-            Cartao cartao2 = new Cartao(cliente1,"2222" , Bandeiras.VISA);
+            Cartao cartao2 = new Cartao(cliente2,"2222" , Bandeiras.VISA);
             cartao2.setSenhaHash("456");
             lista.add(cartao2);
 
             Cliente cliente3 = new Cliente("Pedro",new ContaCorrente("3030-2","34567-8"));
-            Cartao cartao3 = new Cartao(cliente1,"3333" , Bandeiras.VISA);
+            Cartao cartao3 = new Cartao(cliente3,"3333" , Bandeiras.VISA);
             cartao3.setSenhaHash("789");
             lista.add(cartao3);
 

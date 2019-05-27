@@ -17,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 public class Visa {
     private static final String NOME_FILA = "filaPagamentos2";
     private static final List<Transacao> transacoes = new ArrayList<Transacao>();
+    private static final List<Cartao> cartoes = CartoesCadastrados.getLista();
     private static String pagamentoJSON;
 
     public static void main(String[] args) throws IOException, TimeoutException {
@@ -36,7 +37,13 @@ public class Visa {
             pagamentoJSON = new String (delivery.getBody(), "UTF-8");
             Transacao transacao = gson.fromJson(pagamentoJSON,Transacao.class);
 
-            System.out.println("Número cartão: " + transacao.getNumeroCartao());
+            Cartao cartao = CartoesCadastrados.buscarCartao(transacao.getNumeroCartao());
+
+            System.out.println("Nome do cliente: " + cartao.getCliente().getNome());
+            System.out.println("Dados bancários: " +
+                               "\n  Agência: " + cartao.getCliente().getConta().getAgencia() +
+                               "\n  Conta corrente: "  + cartao.getCliente().getConta().getNumeroConta());
+            System.out.println("Número do cartão: " + transacao.getNumeroCartao());
             System.out.println("Valor da compra: "+ transacao.getValor());
             System.out.println("Estabelecimento: "+ transacao.getEstabelecimento().getNome()
                             + " CNPJ "
@@ -49,7 +56,7 @@ public class Visa {
 //                    transacao.getEstabelecimento().getNome(),
 //                    transacao.getEstabelecimento().getCnpj()));
 
-            System.out.println("Transação processada com sucesso!");
+            System.out.println("Transação processada com sucesso!\n");
 
         };
 

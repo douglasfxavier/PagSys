@@ -44,6 +44,10 @@ public class Cartao implements ICartao {
         this.senhaHash = senhaHash;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
     @Override
     public String toString() {
         return "Cartao{" +
